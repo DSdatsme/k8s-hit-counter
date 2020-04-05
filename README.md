@@ -22,3 +22,8 @@ This will download Docker images from dockerhub
 ```bash
 bash start.sh
 ```
+
+## CI/CD
+
+- `.travis.yml` for Continious Integraton.
+- `Jenkinsfile` for Continious Delivery.
