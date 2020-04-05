@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: master
-        image: k8s.gcr.io/redis:e2e
+        image: dsdatsme/redis-hit-counter
         ports:
         - containerPort: 6379
 ---
