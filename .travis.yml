@@ -1,5 +1,7 @@
 language: minimal
 
+sudo : required
+
 services: docker
 
 before_install:
@@ -7,8 +9,13 @@ before_install:
   - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
   - chmod +x ./kubectl
   - sudo mv ./kubectl /usr/local/bin/kubectl
+  - git clone --depth 1 -b "v0.5.1" --single-branch https://github.com/k8s-school/kind-travis-ci.git
+  - ./kind-travis-ci/kind/k8s-create.sh
+  - export KUBECONFIG="$(kind get kubeconfig-path --name="kind")"
 
 install:
-  - docker build -t dsdatsme/redis-hit-counter -f frontend/Dockerfile .
+  - cd frontend
+  - docker build -t dsdatsme/redis-hit-counter  .
+  - cd ..
   - docker build -t dsdatsme/redis-hit-counter -f backend/Dockerfile .
   - bash start.sh
